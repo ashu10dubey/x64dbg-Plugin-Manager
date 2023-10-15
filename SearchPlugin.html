@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyword Search</title>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Enter a keyword">
+    <button id="searchButton">Search</button>
+    <div id="searchResults"></div>
+    <div id="content">
+        <p>This is a sample HTML page.</p>
+        <p>It contains some text for searching.</p>
+        <p>You can search for a keyword here.</p>
+    </div>
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function () {
+            // Get the search keyword and convert it to lowercase for a case-insensitive search
+            var keyword = document.getElementById("searchInput").value.toLowerCase();
+            var content = document.getElementById("content").textContent.toLowerCase();
+            var searchResults = document.getElementById("searchResults");
+
+            // Clear previous search results
+            searchResults.innerHTML = "";
+
+            // Regular expression to find and highlight the keyword
+            var regex = new RegExp(keyword, 'g');
+            var contentWithHighlights = content.replace(regex, '<span class="highlighted">$&</span>');
+            document.getElementById("content").innerHTML = contentWithHighlights;
+
+            var matches = content.match(regex);
+
+            if (matches) {
+                searchResults.innerHTML = "Found " + matches.length + " matches.";
+            } else {
+                searchResults.innerHTML = "No matches found.";
+            }
+        });
+    </script>
+</body>
+</html>
